@@ -1,0 +1,2 @@
+DEFAULT_PORT = 1234
+DEFAULT_NAME = 'localhost'
