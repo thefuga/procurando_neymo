@@ -10,22 +10,23 @@ class Client(object):
         self.__client_socket = socket(AF_INET, SOCK_STREAM)
 
 
-    def init_client(self):
+    def init_client(self, message):
 
         self.__client_socket.connect((self.__server_name, self.__server_port))
 
-        while True:
-            query = input("Digita qualquer merda: ") #será a requisição de partida
-            self.__client_socket.send(str.encode(query))
-            response = self.__client_socket.recv(1024) #resposta do server, com mensagem contendo oponente ou erro
+        if(message[0:1].decode() == consts.ASK_HOST):
+            self.__client_socket.send(message)
+            response = self.__client_socket.recv(4) #resposta do server, com mensagem contendo MSG_OK ou MSG_NOPE
             print(response.decode("utf-8"))
+        elif(message[0:1].decode() == consts.ASK_ESP_OPP):
+            pass
+        elif(message[0:1].decode() == consts.ASK_ANY_OPP):
+            pass
 
-            self.__client_socket.close()
-            break
-
-
+        self.__client_socket.close()
+        
 
 if __name__ == "__main__":
-
+    message = bytes(consts.ASK_HOST.encode()) + r"teste$$$$$$$$$$$".encode()
     client = Client()
-    client.init_client()
+    client.init_client(message)
