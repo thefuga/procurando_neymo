@@ -10,6 +10,7 @@ class Server(object):
         self.__socket = socket(AF_INET, SOCK_STREAM)
         self.__hosts = []
 
+
     def init_server(self):
 
         self.__socket.bind((self.__name, self.__port))
@@ -22,17 +23,30 @@ class Server(object):
 
             if(query):
                 if(query[0:1].decode() == consts.ASK_HOST):
-                    #message = bytearray()
                     print("ASK_HOST")
                     self.__hosts.append((query[1:17].decode(), address))
                     print(query[1:17].decode())
                     connection_socket.send(consts.MSG_OK.encode())                    
                 elif(query[0:1].decode() == consts.ASK_ESP_OPP):
                     print("ASK_ESP_OPP")
-                    connection_socket.send(query)                    
+                    found = False
+                    for host in self.__hosts:
+                        if host[0] == query[1:17].decode():
+                            print(str(host[1][0]) + ":" + str(host[1][1]))
+                            print(len(bytes(consts.SRVR_ANSR.encode() + str(host[1][0]).encode() + ":".encode() + str(host[1][1]).encode())))
+                            connection_socket.send(bytes(consts.SRVR_ANSR.encode() + str(host[1][0]).encode() + ":".encode() + str(host[1][1]).encode()))
+                            self.__hosts.remove(host)
+                            found = True
+                            break
+                    if not found:
+                        connection_socket.send(consts.MSG_NOPE.encode())                    
                 elif(query[0:1].decode() == consts.ASK_ANY_OPP):
                     print("ASK_ANY_OPP")
-                    connection_socket.send(query)                    
+                    if len(self.__hosts) > 0:
+                        connection_socket.send(bytes(consts.SRVR_ANSR.encode() + str(self.__hosts[0][1][0]).encode() + ":".encode() + str(self.__hosts[0][1][1]).encode()))
+                        self.__hosts.remove(self.__hosts[0])
+                    else:
+                        connection_socket.send(consts.MSG_NOPE.encode())
 
                 connection_socket.close()
                 connection_socket, address = self.__socket.accept()

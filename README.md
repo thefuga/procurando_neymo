@@ -6,7 +6,7 @@ Jogo inspirado no melhor jogador da história do esporte.
 1. Solicitação para ser host de uma partida. Primeiro byte é o tipo de mensagem. Próximos 16 bytes são o nome da sala, que será o identificador do usuário para ser localizado.
 2. Solicitação para jogar com outro usuário. Primeiro byte é o tipo de mensagem. Próximos 16 bytes são o nome da sala.
 3. Solicitação para jogar com qualquer um. 1 byte com tipo de mensagem.  
-4. Resposta do servidor para quem criou a sala. Primeiro byte é o tipo de mensagem. Próximo 1 byte é a informação sobre sucesso ou falha na criação da sala.
+4. Resposta do servidor para quem criou a sala. Apenas uma mensagem de "ok" em caso de sucesso ou "nope" em caso de falha.
 5. Resposta do servidor para quem pediu para entrar numa sala. Primeiro byte é o tipo de mensagem. Próximos 4 bytes são o endereço de IP do dono da sala. Próximos 2 bytes são a porta do dono da sala.  
 
 # Protocolo P2P (tipos de mensagem):

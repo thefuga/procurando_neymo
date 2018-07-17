@@ -19,14 +19,20 @@ class Client(object):
             response = self.__client_socket.recv(4) #resposta do server, com mensagem contendo MSG_OK ou MSG_NOPE
             print(response.decode("utf-8"))
         elif(message[0:1].decode() == consts.ASK_ESP_OPP):
-            pass
+            self.__client_socket.send(message)
+            response = self.__client_socket.recv(16)
+            print(response[0:1].decode())
+            print(response[1:].decode())
         elif(message[0:1].decode() == consts.ASK_ANY_OPP):
-            pass
+            self.__client_socket.send(message)
+            response = self.__client_socket.recv(16)
+            print(response[0:1].decode())
+            print(response[1:].decode())
 
         self.__client_socket.close()
         
 
 if __name__ == "__main__":
-    message = bytes(consts.ASK_HOST.encode()) + r"teste$$$$$$$$$$$".encode()
+    message = bytes(consts.ASK_ANY_OPP.encode()) + r"teste$$$$$$$$$$$".encode()
     client = Client()
     client.init_client(message)
