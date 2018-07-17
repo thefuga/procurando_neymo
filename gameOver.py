@@ -9,7 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
+    def setupUi(self, Dialog, controller):
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 120)
         Dialog.setWindowTitle("")

@@ -7,9 +7,13 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import room
+import sys
+import deck
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow, controller):
+        self.controller = controller
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(900, 780)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -193,29 +197,120 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.pushButton_1.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_1.clicked.connect(self.on_click_1)
+        self.pushButton_2.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_2.clicked.connect(self.on_click_2)
+        self.pushButton_3.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_3.clicked.connect(self.on_click_3)
+        self.pushButton_4.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_4.clicked.connect(self.on_click_4)
+        self.pushButton_5.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_5.clicked.connect(self.on_click_5)
+        self.pushButton_6.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_6.clicked.connect(self.on_click_6)
+        self.pushButton_7.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_7.clicked.connect(self.on_click_7)
+        self.pushButton_8.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_8.clicked.connect(self.on_click_8)
+        self.pushButton_9.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_9.clicked.connect(self.on_click_9)
+        self.pushButton_10.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_10.clicked.connect(self.on_click_10)
+        self.pushButton_11.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_11.clicked.connect(self.on_click_11)
+        self.pushButton_12.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_12.clicked.connect(self.on_click_12)
+        self.pushButton_13.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_13.clicked.connect(self.on_click_13)
+        self.pushButton_14.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_14.clicked.connect(self.on_click_14)
+        self.pushButton_15.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_15.clicked.connect(self.on_click_15)
+        self.pushButton_16.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_16.clicked.connect(self.on_click_16)
+        self.pushButton_17.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_17.clicked.connect(self.on_click_17)
+        self.pushButton_18.setIconSize(QtCore.QSize(130,199))
+        self.pushButton_18.clicked.connect(self.on_click_18)
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Procurando Neymo"))
-        self.pushButton_1.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_2.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_3.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_4.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_5.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_6.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_7.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_8.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_9.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_10.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_11.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_12.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_13.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_14.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_15.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_16.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_17.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_18.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_1.setText(_translate("MainWindow", ""))
+        self.pushButton_2.setText(_translate("MainWindow", ""))
+        self.pushButton_3.setText(_translate("MainWindow", ""))
+        self.pushButton_4.setText(_translate("MainWindow", ""))
+        self.pushButton_5.setText(_translate("MainWindow", ""))
+        self.pushButton_6.setText(_translate("MainWindow", ""))
+        self.pushButton_7.setText(_translate("MainWindow", ""))
+        self.pushButton_8.setText(_translate("MainWindow", ""))
+        self.pushButton_9.setText(_translate("MainWindow", ""))
+        self.pushButton_10.setText(_translate("MainWindow", ""))
+        self.pushButton_11.setText(_translate("MainWindow", ""))
+        self.pushButton_12.setText(_translate("MainWindow", ""))
+        self.pushButton_13.setText(_translate("MainWindow", ""))
+        self.pushButton_14.setText(_translate("MainWindow", ""))
+        self.pushButton_15.setText(_translate("MainWindow", ""))
+        self.pushButton_16.setText(_translate("MainWindow", ""))
+        self.pushButton_17.setText(_translate("MainWindow", ""))
+        self.pushButton_18.setText(_translate("MainWindow", ""))
         self.label.setText(_translate("MainWindow", "Você:"))
         self.label_2.setText(_translate("MainWindow", "Adversário:"))
+
+    def on_click_1(self):
+        self.pushButton_1.setIcon(QtGui.QIcon(self.controller.deck.cards[0].image_path))
+
+    def on_click_2(self):
+        self.pushButton_2.setIcon(QtGui.QIcon(self.controller.deck.cards[1].image_path))
+
+    def on_click_3(self):
+        self.pushButton_3.setIcon(QtGui.QIcon(self.controller.deck.cards[2].image_path))
+
+    def on_click_4(self):
+        self.pushButton_4.setIcon(QtGui.QIcon(self.controller.deck.cards[3].image_path))
+
+    def on_click_5(self):
+        self.pushButton_5.setIcon(QtGui.QIcon(self.controller.deck.cards[4].image_path))
+
+    def on_click_6(self):
+        self.pushButton_6.setIcon(QtGui.QIcon(self.controller.deck.cards[5].image_path))
+
+    def on_click_7(self):
+        self.pushButton_7.setIcon(QtGui.QIcon(self.controller.deck.cards[6].image_path))
+
+    def on_click_8(self):
+        self.pushButton_8.setIcon(QtGui.QIcon(self.controller.deck.cards[7].image_path))
+
+    def on_click_9(self):
+        self.pushButton_9.setIcon(QtGui.QIcon(self.controller.deck.cards[8].image_path))
+
+    def on_click_10(self):
+        self.pushButton_10.setIcon(QtGui.QIcon(self.controller.deck.cards[9].image_path))
+
+    def on_click_11(self):
+        self.pushButton_11.setIcon(QtGui.QIcon(self.controller.deck.cards[10].image_path))
+
+    def on_click_12(self):
+        self.pushButton_12.setIcon(QtGui.QIcon(self.controller.deck.cards[11].image_path))
+
+    def on_click_13(self):
+        self.pushButton_13.setIcon(QtGui.QIcon(self.controller.deck.cards[12].image_path))
+
+    def on_click_14(self):
+        self.pushButton_14.setIcon(QtGui.QIcon(self.controller.deck.cards[13].image_path))
+
+    def on_click_15(self):
+        self.pushButton_15.setIcon(QtGui.QIcon(self.controller.deck.cards[14].image_path))
+
+    def on_click_16(self):
+        self.pushButton_16.setIcon(QtGui.QIcon(self.controller.deck.cards[15].image_path))
+
+    def on_click_17(self):
+        self.pushButton_17.setIcon(QtGui.QIcon(self.controller.deck.cards[16].image_path))
+
+    def on_click_18(self):
+        self.pushButton_18.setIcon(QtGui.QIcon(self.controller.deck.cards[17].image_path))

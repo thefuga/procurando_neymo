@@ -9,10 +9,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
+    def setupUi(self, Dialog, controller):
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 120)
-        Dialog.setWindowTitle("")
+        Dialog.setWindowTitle("Sala")
         self.lineEdit = QtWidgets.QLineEdit(Dialog)
         self.lineEdit.setGeometry(QtCore.QRect(10, 40, 381, 29))
         self.lineEdit.setObjectName("lineEdit")
