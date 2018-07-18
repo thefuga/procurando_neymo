@@ -7,9 +7,9 @@ class Deck(object):
         self.seed = seed
         for i in range(0,9):
             self.cards.append(card.Card(i))
+        for i in range(0,9):
             self.cards.append(card.Card(i))
         random.shuffle(self.cards, random=self.rand)
-        pass
 
     def rand(self):
         return self.seed

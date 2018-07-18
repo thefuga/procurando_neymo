@@ -16,6 +16,8 @@ class Controller(object):
     def __init__(self, ui):
         self.myScore = 0
         self.opScore = 0
+        self.lock_1 = -1
+        self.lock_2 = -1
         self.seed = random.random()
         self.deck = deck.Deck(self.seed)
         self.ui = ui
@@ -34,8 +36,18 @@ def main():
     ui.setupUi(main_window,controller)
     main_window.show()
     room_window.show() 
+      #  if (controller.lock_1 != -1 and controller.lock_2 != -1):
+      #      if controller.deck.cards[controller.lock_1].id == controller.deck.cards[controller.lock_2].id:
+     #           controller.myScore = controller.myScore + 1
+                #trava os botoes e da +1 na propria myScore
+            #else:
+                #reseta os 2 botoes clicados
+     #   controller.lock_1 = controller.lock_2 = -1
 
     sys.exit(app.exec_())
+    while True:
+        if (controller.lock_1 != -1 and controller.lock_2 != -1):
+            controller.myScore =1
     
 
 
