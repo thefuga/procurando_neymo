@@ -94,16 +94,16 @@ class Controller(object):
         
         self.room_ui.room_window.hide()
         self.ui.main_window.show()
-        self.ui.set_all_buttons(self.myTurn)
+        #self.ui.set_all_buttons(self.myTurn)
         self.play_control()
     
 
     def play_control(self):
-        self.ui.set_all_buttons(False)
+        #self.ui.set_all_buttons(False)
         while(not(self.peer.client_peer.active or self.peer.server_peer.active)):
             pass
         self.myTurn = True
-        self.ui.set_all_buttons(True)
+        #self.ui.set_all_buttons(True)
         self.peer.play_input.play(message_type=consts.MSG_MY_TURN)
 
         
