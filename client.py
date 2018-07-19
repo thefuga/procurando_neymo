@@ -58,7 +58,3 @@ class Client(object):
             return(ip, port, seed)
 
         self.__client_socket.close()
-        
-if __name__ == "__main__":
-    client = Client()
-    print(client.init_client(consts.ASK_ANY_OPP, room_name="teste", seed=0.0005))
