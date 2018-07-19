@@ -11,6 +11,7 @@ from PyQt5 import QtWidgets
 import sys
 import roomController
 import time
+import numpy
 import client as clt
 
 class Controller(object):
@@ -21,7 +22,7 @@ class Controller(object):
         self.lock_1 = -1
         self.lock_2 = -1
         self.myTurn = True
-        #self.seed = random.random()
+        self.seed = random.random()
         #self.deck = deck.Deck(self.seed)
         self.ui = ui
         self.game_over_ui = game_over_ui
@@ -54,7 +55,7 @@ class Controller(object):
     def room_rendezvous(self, message_type, room_name_1):
         client = clt.Client()
         if(message_type == "host"):
-            self.ip_port_seed=client.init_client(consts.ASK_HOST, room_name=room_name_1, seed = random.random())
+            self.ip_port_seed=client.init_client(consts.ASK_HOST, room_name=room_name_1, seed = numpy.random.randint(1))
             self.myTurn = True
         elif(room_name_1 == ""):
             self.ip_port_seed=client.init_client(consts.ASK_ANY_OPP)
