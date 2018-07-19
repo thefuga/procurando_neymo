@@ -26,40 +26,40 @@ class Client(object):
         if(message[0:1].decode() == consts.ASK_HOST):
             self.__client_socket.send(message)
             response = self.__client_socket.recv(40) #resposta do server, com mensagem contendo MSG_OK ou MSG_NOPE
-            tokens = response[1:18].decode().split(":")
+            tokens = response[1:17].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
-            seed = float(response[18:].decode())
+            new_seed = float(response[17:].decode())
             self.__client_socket.close()
-            return(ip, port, seed)
+            return(ip, port, new_seed)
         elif(message[0:1].decode() == consts.ASK_ESP_OPP):
             self.__client_socket.send(message)
             response = self.__client_socket.recv(40)
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
-            tokens = response[1:18].decode().split(":")
+            tokens = response[1:17].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
-            seed = float(response[18:].decode())
+            new_seed = float(response[17:].decode())
             self.__client_socket.close()
-            return(ip, port, seed)
+            return(ip, port, new_seed)
         elif(message[0:1].decode() == consts.ASK_ANY_OPP):
             self.__client_socket.send(message)
             response = self.__client_socket.recv(40)
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
-            tokens = response[1:18].decode().split(":")
+            tokens = response[1:17].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
-            seed = float(response[18:].decode())
+            new_seed = float(response[17:].decode())
             self.__client_socket.close()
-            return(ip, port, seed)
+            return(ip, port, new_seed)
 
         self.__client_socket.close()
         
 if __name__ == "__main__":
     import random
     client = Client()
-    print(client.init_client(consts.ASK_ESP_OPP, room_name="teste", seed=random.random()))
+    print(client.init_client(consts.ASK_ANY_OPP, room_name="teste", seed=random.random()))
