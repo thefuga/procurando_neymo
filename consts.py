@@ -11,4 +11,5 @@ ASK_ANY_OPP = r'5'
 SRVR_ANSR = r'6'
 HND_SHK = r'7'
 HND_SHK_ANSR = r'8'
-
+MSG_YOUR_TURN = r'u'
+MSG_MY_TURN = r'i'
