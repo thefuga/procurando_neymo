@@ -49,6 +49,7 @@ class Controller(object):
                         self.myScore = self.opScore = 0
                 else:
                     time.sleep(1)
+                    self.peer.play_input.play("01", "02") #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
                     self.ui.reset_buttons(id)
                 self.lock_2 = -1
                 self.lock_1 = -1

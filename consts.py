@@ -1,6 +1,6 @@
 #Constantes do servidor:
 DEFAULT_PORT = 1234
-DEFAULT_NAME = '192.168.1.9'
+DEFAULT_NAME = 'localhost'
 
 #Identificadores de mensagems:
 MSG_OK = r'1'

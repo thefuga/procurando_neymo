@@ -28,9 +28,9 @@ class ServerPeer(threading.Thread):
             input_ready, output_ready, except_ready = select.select ([self.connection_socket], [self.connection_socket], [])
             for input_item in input_ready:
                 # Handle sockets
-                data = self.connection_socket.recv(1024)
+                data = self.connection_socket.recv(4)
                 if data:
-                    print("Them: " + data.decode())
+                    print("Them: " + data[0:2].decode() + data[2:4].decode())
                 else:
                     break
             time.sleep(0)
@@ -62,9 +62,9 @@ class ClientPeer(threading.Thread):
 
             for input_item in input_ready:
                 # Handle sockets
-                data = self.client_socket.recv(1024)
+                data = self.client_socket.recv(4)
                 if data:
-                    print("Them: " + data.decode())
+                    print("Them: " + data[0:2].decode() + data[2:4].decode())
                 else:
                     break
 
@@ -89,10 +89,10 @@ class PlayInput(threading.Thread):
 
         while self.running == True:
 
-            self.message = bytes(input("").encode())
+            #self.message = bytes(input("").encode())
 
-            #while(not self.message):
-            #   pass
+            while(not self.message):
+               pass
 
             try:
                 self.client_peer.client_socket.sendall(self.message)
@@ -114,8 +114,8 @@ class PlayInput(threading.Thread):
 
 
     def play(self, first_card, second_card):
-        
-        self.message = first_card#, second_card
+        self.message = bytes(first_card.encode() + second_card.encode())
+        #self.message = first_card#, second_card
 
 
 
