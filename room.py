@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog, controller):
+        self.controller = controller
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 120)
         Dialog.setWindowTitle("Sala")
@@ -25,9 +26,17 @@ class Ui_Dialog(object):
         self.pushButton_2 = QtWidgets.QPushButton(Dialog)
         self.pushButton_2.setGeometry(QtCore.QRect(290, 80, 101, 29))
         self.pushButton_2.setObjectName("pushButton_2")
-
+        self.pushButton.clicked.connect(self.button_1)
+        self.pushButton_2.clicked.connect(self.button_2)
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+
+    def button_1(self):
+        self.controller.room_rendezvous("host", self.lineEdit.text)
+
+    def button_2(self):
+        self.controller.room_rendezvous("player", self.lineEdit.text)
+
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
