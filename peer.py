@@ -4,75 +4,72 @@ import time
 import select
 import consts 
 
+
 class ServerPeer(threading.Thread):
 
-    def __init__(self):
+    def __init__(self, my_ip, my_port):
         threading.Thread.__init__(self)
-        self.__running = True
-        #self.__my_port = my_port
-        #self.__my_ip = my_ip
-        self.__connection_socket = None
-        self.__address = None
+        self.running = 1
+        self.my_port = my_port
+        self.my_ip = my_ip
+        self.connection_socket = None
+        self.address = None
         
-       
 
     def run(self):
-        host = ''
-        port = 1776
         socket = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
         socket.setsockopt(skt.SOL_SOCKET, skt.SO_REUSEADDR, 1)
-        socket.bind((host, port))
+        socket.bind((self.my_ip, self.my_port))
         socket.listen(1)
 
-        self.__connection_socket, self.__address = socket.accept()
+        self.connection_socket, self.address = socket.accept()
             
-        while self.__running == 1:
-            input_ready, output_ready, except_ready = select.select ([self.__connection_socket], [self.__connection_socket], [])
+        while self.running == True:
+            input_ready, output_ready, except_ready = select.select ([self.connection_socket], [self.connection_socket], [])
             for input_item in input_ready:
                 # Handle sockets
-                data = self.__connection_socket.recv(1024)
+                data = self.connection_socket.recv(1024)
                 if data:
-                    print("Them: " + data)
+                    print("Them: " + data.decode())
                 else:
                     break
             time.sleep(0)
         
 
     def kill(self):
-        self.__running = 0
+        self.running = 0
 
 
 class ClientPeer(threading.Thread):
 
-    def __init__(self):
+    def __init__(self, peer_ip, peer_port):
         threading.Thread.__init__(self)
-        self.__running = 1
-        self.__peer_ip = None
-        self.__client_socket = None
-        #self.__peer_port = None
+        self.running = 1
+        self.client_socket = None
+        self.peer_ip = peer_ip
+        self.peer_port = peer_port
+        self.host = None
         
 
     def run(self):
-
-        port = 1776
-        self.__client_socket = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
-        self.__client_socket.connect((self.__peer_ip, port))
+        self.client_socket = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
+        self.client_socket.connect((self.peer_ip, self.peer_port))
 
         # Select loop for listen
-        while self.__running == True:
-            input_ready, output_ready, except_ready = select.select ([self.__client_socket], [self.__client_socket], [])
+        while self.running == True:
+            input_ready, output_ready, except_ready = select.select ([self.client_socket], [self.client_socket], [])
             for input_item in input_ready:
                 # Handle sockets
-                data = self.__client_socket.recv(1024)
+                data = self.client_socket.recv(1024)
                 if data:
-                    print("Them: " + data)
+                    print("Them: " + data.decode())
                 else:
                     break
             time.sleep(0)
 
 
     def kill(self):
-        self.__running = 0
+        self.running = 0
 
 
 class PlayInput(threading.Thread):
@@ -80,25 +77,25 @@ class PlayInput(threading.Thread):
     def __init__(self, client_peer, server_peer):
         threading.Thread.__init__(self)
         self.client_peer = client_peer
-        self.server_peer = server_peer
-        self.__running = 1
+        self.server_peer = server_peer        
+        self.running = 1
         
 
     def run(self):
 
-        while self.__running == True:
+        while self.running == True:
 
-            text = input('')
-
-            try:
-                self.client_peer.__client_socket.sendall(text)
-            except:
-                Exception
+            text = bytes(input('').encode())
 
             try:
-                self.server_peer.__connection_socket.sendall(text)
-            except:
-                Exception
+                self.client_peer.client_socket.sendall(text)
+            except Exception:
+                pass
+
+            try:
+                self.server_peer.connection_socket.sendall(text)
+            except Exception:
+                pass
 
             time.sleep(0)
         
@@ -107,27 +104,28 @@ class PlayInput(threading.Thread):
         self.running = 0
 
 
-if __name__ == "__main__":
+class Peer():
 
+    def __init__(self, server_ip="", server_port=3216, my_ip=None, my_port=3216, listening=True):
+        if listening:
+            self.server_peer = ServerPeer(server_ip, server_port)
+            self.client_peer = ClientPeer(my_ip, my_port)
+            self.server_peer.start()
+            self.play_input = PlayInput(self.client_peer, self.server_peer)
+            self.play_input.start()
+        else:
+            self.server_peer = ServerPeer(server_ip, server_port)
+            self.client_peer = ClientPeer(my_ip, my_port)
+            self.play_input = PlayInput(self.client_peer, self.server_peer)
+            self.client_peer.start()
+            self.play_input.start()
+
+
+if __name__ == "__main__":
     ip_addr = input('What IP (or type listen)?:')
 
     if ip_addr == 'listen':
-        server_peer = ServerPeer()
-        client_peer = ClientPeer()
-        server_peer.start()
-        play_input = PlayInput(client_peer, server_peer)
-        play_input.start()
-    elif ip_addr == 'Listen':
-        server_peer = ServerPeer()
-        client_peer = ClientPeer()
-        server_peer.start()
-        play_input = PlayInput(client_peer, server_peer)
-        play_input.start()
+        peer = Peer()
     else:
-        server_peer = ServerPeer()
-        client_peer = ClientPeer()
-        client_peer.__peer_ip = ip_addr
-        play_input = PlayInput(client_peer, server_peer)
-        client_peer.start()
-        play_input.start()
+        peer = Peer(my_ip = ip_addr, listening=False)
 

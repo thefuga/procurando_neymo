@@ -1,5 +1,5 @@
 import sys
-from socket import *
+import socket as skt
 import consts
 
 class Client(object):
@@ -7,7 +7,7 @@ class Client(object):
     def __init__(self):
         self.__server_name = consts.DEFAULT_NAME
         self.__server_port = consts.DEFAULT_PORT
-        self.__client_socket = socket(AF_INET, SOCK_STREAM)
+        self.__client_socket = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
         
 
 
