@@ -25,7 +25,7 @@ class Client(object):
 
         if(message[0:1].decode() == consts.ASK_HOST):
             self.__client_socket.send(message)
-            response = self.__client_socket.recv(24) #resposta do server, com mensagem contendo MSG_OK ou MSG_NOPE
+            response = self.__client_socket.recv(40) #resposta do server, com mensagem contendo MSG_OK ou MSG_NOPE
             tokens = response[1:17].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
@@ -34,7 +34,7 @@ class Client(object):
             return(ip, port, seed)
         elif(message[0:1].decode() == consts.ASK_ESP_OPP):
             self.__client_socket.send(message)
-            response = self.__client_socket.recv(24)
+            response = self.__client_socket.recv(40)
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
@@ -46,7 +46,7 @@ class Client(object):
             return(ip, port, seed)
         elif(message[0:1].decode() == consts.ASK_ANY_OPP):
             self.__client_socket.send(message)
-            response = self.__client_socket.recv(24)
+            response = self.__client_socket.recv(40)
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
@@ -58,3 +58,8 @@ class Client(object):
             return(ip, port, seed)
 
         self.__client_socket.close()
+        
+if __name__ == "__main__":
+    import random
+    client = Client()
+    print(client.init_client(consts.ASK_HOST, room_name="teste", seed=random.random()))
