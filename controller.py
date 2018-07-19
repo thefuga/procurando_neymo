@@ -52,8 +52,24 @@ class Controller(object):
                     time.sleep(1)
                     self.myTurn = False
                     self.ui.reset_buttons(id)
-                    self.peer.play_input.play(message_type=consts.MSG_YOUR_TURN, first_card="01", second_card="02") #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
+                    self.peer.play_input.play(message_type=consts.MSG_YOUR_TURN, 
+                    first_card=str(self.lock_1) if self.lock_1 >= 10 else "0" +  str(self.lock_1), 
+                    second_card=str(id) if id >= 10 else "0" + str(id)) #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
                     self.play_control()
+                    message = self.peer.server_peer.message or self.peer.client_peer.message
+                    message[1], message[2]
+                    self.ui.lcdNumber_2.display(int(message[3]))
+                    if(int(message[1])==0):
+                        self.ui.on_press_1()
+                    if(int(message[2])==1):
+                        self.ui.on_press_2()
+                    if self.opScore < int(message[3]):
+                        self.opScore = int(message[3])
+                    else:
+                        pass
+                        #reseto os botoes
+                    #aqui eu atualizo o placar do adversario
+                    #se muda o placar dele eu n reseto, se muda eu reseto
 
                 self.lock_2 = -1
                 self.lock_1 = -1
