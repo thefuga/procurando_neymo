@@ -11,7 +11,7 @@ class Client(object):
         
 
 
-    def init_client(self, message_type, room_name=None):
+    def init_client(self, message_type, seed=None, room_name=None):
 
         if(len(room_name) > 16):
             room_name = room_name[:16]
@@ -19,40 +19,46 @@ class Client(object):
             while len(room_name) < 16:
                 room_name += r"$"
 
-        message = bytes(message_type.encode() + room_name.encode())
+        message = bytes(message_type.encode() + room_name.encode() + str(seed).encode())
 
         self.__client_socket.connect((self.__server_name, self.__server_port))
 
         if(message[0:1].decode() == consts.ASK_HOST):
             self.__client_socket.send(message)
-            response = self.__client_socket.recv(16) #resposta do server, com mensagem contendo MSG_OK ou MSG_NOPE
-            tokens = response[1:].decode().split(":")
+            response = self.__client_socket.recv(24) #resposta do server, com mensagem contendo MSG_OK ou MSG_NOPE
+            tokens = response[1:17].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
+            seed = float(response[17:].decode())
             self.__client_socket.close()
-            return(ip, port)
+            return(ip, port, seed)
         elif(message[0:1].decode() == consts.ASK_ESP_OPP):
             self.__client_socket.send(message)
-            response = self.__client_socket.recv(16)
+            response = self.__client_socket.recv(24)
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
-            tokens = response[1:].decode().split(":")
+            tokens = response[1:17].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
+            seed = float(response[17:].decode())
             self.__client_socket.close()
-            return(ip, port)
+            return(ip, port, seed)
         elif(message[0:1].decode() == consts.ASK_ANY_OPP):
             self.__client_socket.send(message)
-            response = self.__client_socket.recv(16)
+            response = self.__client_socket.recv(24)
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
-            tokens = response[1:].decode().split(":")
+            tokens = response[1:17].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
+            seed = float(response[17:].decode())
             self.__client_socket.close()
-            return(ip, port)
+            return(ip, port, seed)
 
         self.__client_socket.close()
         
+if __name__ == "__main__":
+    client = Client()
+    print(client.init_client(consts.ASK_ANY_OPP, room_name="teste", seed=0.0005))
