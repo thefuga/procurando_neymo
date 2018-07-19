@@ -30,15 +30,14 @@ class ServerPeer(threading.Thread):
             input_ready, output_ready, except_ready = select.select ([self.connection_socket], [self.connection_socket], [])
             for input_item in input_ready:
                 # Handle sockets
-                data = self.connection_socket.recv(5)
+                data = self.connection_socket.recv(7)
                 if data:
-                    self.message = (data[0:1].decode(), data[1:3].decode(), data[3:5].decode())
+                    self.message = (data[0:1].decode(), data[1:3].decode(), data[3:5].decode(), data[5:7].decode())
                     if self.message[0] == consts.MSG_YOUR_TURN:
                         self.active = True
                     elif self.message[0] == consts.MSG_MY_TURN:
                         self.active == False
-                    print((data[0:1].decode(), data[1:3].decode(), data[3:5].decode()))                    
-                    #print("Received: " + data[0:2].decode() + data[2:4].decode())
+                    print((data[0:1].decode(), data[1:3].decode(), data[3:5].decode(), data[5:7].decode()))                 
                 else:
                     self.message = None
                     break
@@ -74,15 +73,14 @@ class ClientPeer(threading.Thread):
 
             for input_item in input_ready:
                 # Handle sockets
-                data = self.client_socket.recv(5)
+                data = self.client_socket.recv(7)
                 if data:
-                    self.message = (data[0:1].decode(), data[1:3].decode(), data[3:5].decode())
+                    self.message = (data[0:1].decode(), data[1:3].decode(), data[3:5].decode(), data[5:7].decode())
                     if self.message[0] == consts.MSG_YOUR_TURN:
                         self.active = True
                     elif self.message[0] == consts.MSG_MY_TURN:
                         self.active == False                       
-                    print((data[0:1].decode(), data[1:3].decode(), data[3:5].decode()))                    
-                    #print("Received: " + data[0:2].decode() + data[2:4].decode())
+                    print((data[0:1].decode(), data[1:3].decode(), data[3:5].decode(), data[5:7].decode()))                    
                 else:
                     self.message = None
                     break
@@ -108,9 +106,6 @@ class PlayInput(threading.Thread):
     def run(self):
 
         while self.running == True:
-
-            #self.message = bytes(input("").encode())
-
             while(not self.message):
                pass
 
@@ -135,15 +130,14 @@ class PlayInput(threading.Thread):
         self.running = 0
 
 
-    def play(self, message_type=None, first_card=" ", second_card=" "):
-        self.message = bytes(message_type.encode() + first_card.encode() + second_card.encode())
+    def play(self, message_type=None, first_card="__", second_card="__", score="__"):
+        self.message = bytes(message_type.encode() + first_card.encode() + second_card.encode() + score.encode())
         if message_type == consts.MSG_YOUR_TURN:
             self.client_peer.active = False
             self.server_peer.active = False
         elif message_type == consts.MSG_MY_TURN:
             self.client_peer.active = True
             self.server_peer.active = True
-
 
 
 class Peer():
