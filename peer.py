@@ -1,4 +1,4 @@
-import socket
+import socket as skt
 import threading
 import time
 import select
@@ -11,19 +11,22 @@ class ServerPeer(threading.Thread):
         self.__running = True
         self.__my_port = my_port
         self.__my_ip = my_ip
-        self.__socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.__connection_socket = None
+        self.__address = None
+        
        
 
     def run(self):
-            
-        self.__socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.__socket.bind((self.__my_ip, self.__my_port))
-        self.__socket.listen(1)
+        
+        socket = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
+        socket.setsockopt(skt.SOL_SOCKET, skt.SO_REUSEADDR, 1)
+        socket.bind((self.__my_ip, self.__my_port))
+        socket.listen(1)
 
-        self.__connection_socket, address = self.__socket.accept()
+        self.__connection_socket, self.__address = socket.accept()
             
-        while self.__running:
-            input_ready, output_ready, except_ready = select.select ([self.__socket], [self.__socket], [])
+        while self.__running == True:
+            input_ready, output_ready, except_ready = select.select ([self.__connection_socket], [self.__connection_socket], [])
             for input_item in input_ready:
                 # Handle sockets
                 data = self.__connection_socket.recv(1024)
@@ -45,15 +48,16 @@ class ClientPeer(threading.Thread):
         self.__running = True
         self.__peer_ip = peer_ip
         self.__peer_port = peer_port
-        self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        
 
 
     def run(self):
 
+        self.__client_socket = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
         self.__client_socket.connect((self.__peer_ip, self.__peer_port))
 
         # Select loop for listen
-        while self.__running:
+        while self.__running == True:
             input_ready,output_ready,except_ready = select.select ([self.__client_socket], [self.__client_socket], [])
             for input_item in input_ready:
                 # Handle sockets
