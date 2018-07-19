@@ -25,7 +25,7 @@ class ServerPeer(threading.Thread):
 
         self.__connection_socket, self.__address = socket.accept()
             
-        while self.__running == True:
+        while self.__running == 1:
             input_ready, output_ready, except_ready = select.select ([self.__connection_socket], [self.__connection_socket], [])
             for input_item in input_ready:
                 # Handle sockets
@@ -38,18 +38,17 @@ class ServerPeer(threading.Thread):
         
 
     def kill(self):
-        self.__running = False
+        self.__running = 0
 
 
 class ClientPeer(threading.Thread):
 
     def __init__(self, peer_port, peer_ip):
         threading.Thread.__init__(self)
-        self.__running = True
+        self.__running = 1
         self.__peer_ip = peer_ip
         self.__peer_port = peer_port
         
-
 
     def run(self):
 
@@ -58,7 +57,7 @@ class ClientPeer(threading.Thread):
 
         # Select loop for listen
         while self.__running == True:
-            input_ready,output_ready,except_ready = select.select ([self.__client_socket], [self.__client_socket], [])
+            input_ready, output_ready, except_ready = select.select ([self.__client_socket], [self.__client_socket], [])
             for input_item in input_ready:
                 # Handle sockets
                 data = self.__client_socket.recv(1024)
@@ -70,7 +69,7 @@ class ClientPeer(threading.Thread):
 
 
     def kill(self):
-        self.__running = False
+        self.__running = 0
 
 
 class PlayInput(threading.Thread):
@@ -79,7 +78,7 @@ class PlayInput(threading.Thread):
         threading.Thread.__init__(self)
         self.client_peer = client_peer
         self.server_peer = server_peer
-        self.__running = True
+        self.__running = 1
         
 
     def run(self):
@@ -89,12 +88,12 @@ class PlayInput(threading.Thread):
             text = input('')
 
             try:
-                client_peer.__client_socket.sendall(text)
+                self.client_peer.__client_socket.sendall(text)
             except:
                 Exception
 
             try:
-                server_peer.__connection_socket.sendall(text)
+                self.server_peer.__connection_socket.sendall(text)
             except:
                 Exception
 
@@ -102,7 +101,7 @@ class PlayInput(threading.Thread):
         
         
     def kill(self):
-        self.running = False
+        self.running = 0
 
 
 if __name__ == "__main__":
@@ -110,19 +109,19 @@ if __name__ == "__main__":
     ip_addr = input('What IP (or type listen)?:')
 
     if ip_addr == 'listen':
-        server_peer = ServerPeer(1776, "")
+        server_peer = ServerPeer(1776, '')
         client_peer = ClientPeer(1776, None)
         server_peer.start()
         play_input = PlayInput(client_peer, server_peer)
         play_input.start()
     elif ip_addr == 'Listen':
-        server_peer = ServerPeer(1776, "")
+        server_peer = ServerPeer(1776, '')
         client_peer = ClientPeer(1776, None)
         server_peer.start()
         play_input = PlayInput(client_peer, server_peer)
         play_input.start()
     else:
-        server_peer = ServerPeer(1776, "")
+        server_peer = ServerPeer(1776, '')
         client_peer = ClientPeer(1776, ip_addr)
         client_peer.__peer_ip = ip_addr
         play_input = PlayInput(client_peer, server_peer)
