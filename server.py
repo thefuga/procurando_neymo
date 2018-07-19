@@ -19,15 +19,15 @@ class Server(object):
         connection_socket, address = self.__socket.accept()
 
         while True:
-            query = connection_socket.recv(40)#
+            query = connection_socket.recv(44)#
 
             if(query):
                 if(query[0:1].decode() == consts.ASK_HOST):
                     print("ASK_HOST")
                     self.__hosts.append((query[1:17].decode(), address, query[17:].decode()))
                     print(query[1:17].decode())
-                    print(query[17:].decode())
                     connection_socket.send(bytes(consts.SRVR_ANSR.encode() + str(address[0]).encode() + ":".encode() + str(address[1]).encode() + query[17:]))
+                    print(address[0] + ":" + str(address[1]))
                     #connection_socket.send(consts.MSG_OK.encode())                    
                 elif(query[0:1].decode() == consts.ASK_ESP_OPP):
                     print("ASK_ESP_OPP")
@@ -35,7 +35,6 @@ class Server(object):
                     for host in self.__hosts:
                         if host[0] == query[1:17].decode():
                             print(query[1:17].decode())
-                            print(query[17:].decode())
                             connection_socket.send(bytes(consts.SRVR_ANSR.encode() + str(host[1][0]).encode() + ":".encode() + str(host[1][1]).encode() + str(host[2]).encode()))
                             self.__hosts.remove(host)
                             found = True
@@ -46,7 +45,6 @@ class Server(object):
                     print("ASK_ANY_OPP")
                     if len(self.__hosts) > 0:
                         print(query[1:17].decode())
-                        print(query[17:].decode())
                         connection_socket.send(bytes(consts.SRVR_ANSR.encode() + str(self.__hosts[0][1][0]).encode() + ":".encode() + str(self.__hosts[0][1][1]).encode() + str(self.__hosts[0][2]).encode()))
                         self.__hosts.remove(self.__hosts[0])
                     else:

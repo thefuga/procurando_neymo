@@ -26,11 +26,12 @@ class Client(object):
         if(message[0:1].decode() == consts.ASK_HOST):
             self.__client_socket.send(message)
             response = self.__client_socket.recv(40) #resposta do server, com mensagem contendo MSG_OK ou MSG_NOPE
-            tokens = response[1:16].decode().split(":")
+            tokens = response[1:18].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
-            new_seed = int(response[16:].decode())
+            new_seed = int(response[18:].decode())
             self.__client_socket.close()
+            print(ip, port, new_seed)
             return(ip, port, new_seed)
         elif(message[0:1].decode() == consts.ASK_ESP_OPP):
             self.__client_socket.send(message)
@@ -38,10 +39,10 @@ class Client(object):
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
-            tokens = response[1:16].decode().split(":")
+            tokens = response[1:18].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
-            new_seed = int(response[16:].decode())
+            new_seed = int(response[18:].decode())
             self.__client_socket.close()
             return(ip, port, new_seed)
         elif(message[0:1].decode() == consts.ASK_ANY_OPP):
@@ -50,10 +51,10 @@ class Client(object):
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
-            tokens = response[1:16].decode().split(":")
+            tokens = response[1:18].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
-            new_seed = int(response[16:].decode())
+            new_seed = int(response[18:].decode())
             self.__client_socket.close()
             return(ip, port, new_seed)
 
