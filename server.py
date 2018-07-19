@@ -26,7 +26,8 @@ class Server(object):
                     print("ASK_HOST")
                     self.__hosts.append((query[1:17].decode(), address))
                     print(query[1:17].decode())
-                    connection_socket.send(consts.MSG_OK.encode())                    
+                    connection_socket.send(bytes(consts.SRVR_ANSR.encode() + str(address[0]).encode() + ":".encode() + str(address[1]).encode()))
+                    #connection_socket.send(consts.MSG_OK.encode())                    
                 elif(query[0:1].decode() == consts.ASK_ESP_OPP):
                     print("ASK_ESP_OPP")
                     found = False
