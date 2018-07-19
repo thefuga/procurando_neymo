@@ -13,6 +13,7 @@ import roomController
 import time
 import numpy
 import client as clt
+import peer
 
 class Controller(object):
 
@@ -27,6 +28,7 @@ class Controller(object):
         self.ui = ui
         self.game_over_ui = game_over_ui
         self. room_ui = room_ui
+        self.peer = None
         #ui.show_room_window(self)
 
     def click_action(self,id):
@@ -57,14 +59,18 @@ class Controller(object):
         if(message_type == "host"):
             self.ip_port_seed=client.init_client(consts.ASK_HOST, room_name=room_name_1, seed = numpy.random.randint(9))
             self.myTurn = True
+            self.peer = peer.Peer(server_ip=self.ip_port_seed[0], server_port=self.ip_port_seed[1], my_port=self.ip_port_seed[1])
         elif(room_name_1 == ""):
             self.ip_port_seed=client.init_client(consts.ASK_ANY_OPP)
             self.myTurn = False
+            self.peer = peer.Peer(my_ip=self.ip_port_seed[0], server_port=self.ip_port_seed[1], my_port=self.ip_port_seed[1], listening=False)
         else:
             self.ip_port_seed=client.init_client(consts.ASK_ESP_OPP, room_name=room_name_1)
             self.myTurn = False
+            self.peer = peer.Peer(my_ip=self.ip_port_seed[0], server_port=self.ip_port_seed[1], my_port=self.ip_port_seed[1], listening=False)
 
         self.deck = deck.Deck(self.ip_port_seed[2])
+        
         self.room_ui.room_window.hide()
         self.ui.main_window.show()
         self.ui.set_all_buttons(self.myTurn)
