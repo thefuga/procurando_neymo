@@ -14,6 +14,7 @@ import time
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, controller):
+        self.main_window = MainWindow
         self.controller = controller
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(900, 780)
@@ -283,7 +284,7 @@ class Ui_MainWindow(object):
         self.pushButton_17.setText(_translate("MainWindow", ""))
         self.pushButton_18.setText(_translate("MainWindow", ""))
         self.label.setText(_translate("MainWindow", "Você:"))
-        self.label_2.setText(_translate("MainWindow", self.controller.opName + ":"))
+        self.label_2.setText(_translate("MainWindow", "Adversário:"))
 
     def on_click_1(self):
         self.controller.click_action(0)

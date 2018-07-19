@@ -11,19 +11,18 @@ from PyQt5 import QtWidgets
 import sys
 import roomController
 import time
-import client
+import client as clt
 
 class Controller(object):
 
     def __init__(self, ui, room_ui, game_over_ui):
         self.myScore = 0
         self.opScore = 0
-        self.myName = "Neymar"
-        self.opName = "Mbappé"
         self.lock_1 = -1
         self.lock_2 = -1
-        self.seed = random.random()
-        self.deck = deck.Deck(self.seed)
+        self.myTurn = True
+        #self.seed = random.random()
+        #self.deck = deck.Deck(self.seed)
         self.ui = ui
         self.game_over_ui = game_over_ui
         self. room_ui = room_ui
@@ -42,7 +41,7 @@ class Controller(object):
                         if(self.myScore > self.opScore):
                             self.game_over_ui.label.setText("Você ganhou!")
                         else:
-                            self.game_over_ui.label.setText( self.opName + " ganhou!")
+                            self.game_over_ui.label.setText( "Seu adversário ganhou!")
                         self.game_over_ui.game_over_window.show()
                         self.myScore = self.opScore = 0
                 else:
@@ -52,14 +51,22 @@ class Controller(object):
                 self.lock_1 = -1
         
         
-    def room_rendezvous(self, message_type, room_name):
+    def room_rendezvous(self, message_type, room_name_1):
+        client = clt.Client()
         if(message_type == "host"):
-            self.ip_port=client.Client.init_client(consts.ASK_HOST, room_name)
-        elif(room_name == ""):
-            self.ip_port=client.Client.init_client(consts.ASK_ANY_OPP, room_name)
+            self.ip_port_seed=client.init_client(consts.ASK_HOST, room_name=room_name_1, seed = random.random())
+            self.myTurn = True
+        elif(room_name_1 == ""):
+            self.ip_port_seed=client.init_client(consts.ASK_ANY_OPP)
+            self.myTurn = False
         else:
-            self.ip_port=client.Client.init_client(consts.ASK_ESP_OPP, room_name)
-        
+            self.ip_port_seed=client.init_client(consts.ASK_ESP_OPP, room_name=room_name_1)
+            self.myTurn = False
+
+        self.deck = deck.Deck(self.ip_port_seed[2])
+        self.room_ui.room_window.hide()
+        self.ui.main_window.show()
+        self.ui.set_all_buttons(self.myTurn)
     
 
         
@@ -76,7 +83,7 @@ def main():
     room_ui.setupUi(room_window ,controller)
     ui.setupUi(main_window,controller)
     game_over_ui.setupUi(game_over_window,controller)
-    main_window.show()
+    
     room_window.show() 
     #sgame_over_window.show()
       #  if (controller.lock_1 != -1 and controller.lock_2 != -1):

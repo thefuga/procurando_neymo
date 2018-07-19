@@ -11,6 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog, controller):
         self.controller = controller
+        self.room_window = Dialog
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 120)
         Dialog.setWindowTitle("Sala")
@@ -32,10 +33,10 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def button_1(self):
-        self.controller.room_rendezvous("host", self.lineEdit.text)
+        self.controller.room_rendezvous("host", self.lineEdit.text())
 
     def button_2(self):
-        self.controller.room_rendezvous("player", self.lineEdit.text)
+        self.controller.room_rendezvous("player", self.lineEdit.text())
 
 
     def retranslateUi(self, Dialog):
