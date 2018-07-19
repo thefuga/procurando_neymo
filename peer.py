@@ -71,8 +71,10 @@ class ClientPeer(threading.Thread):
 
 class PlayInput(threading.Thread):
 
-    def __init__(self):
+    def __init__(self, client_peer, server_peer):
         threading.Thread.__init__(self)
+        self.client_peer = client_peer
+        self.server_peer = server_peer
         self.__running = True
         
 
@@ -83,7 +85,7 @@ class PlayInput(threading.Thread):
             text = input('')
 
             try:
-                client_peer.__socket.sendall(text)
+                client_peer.__client_socket.sendall(text)
             except:
                 Exception
 
@@ -99,60 +101,27 @@ class PlayInput(threading.Thread):
         self.running = False
 
 
-
-
-class Peer(object):
-
-    client_peer = None
-    server_peer = None
-    play_input = None
-
-    def __init__(self, my_ip, my_port, peer_ip, peer_port):
-
-        ip_addr = input('What IP (or type listen)?:')
-
-        if ip_addr == 'listen':
-            server_peer = self.ServerPeer(my_port, my_ip)
-            client_peer = self.ClientPeer(peer_port, peer_ip)
-            server_peer.start()
-            play_input = self.PlayInput
-            play_input.start()
-        elif ip_addr == 'Listen':
-            server_peer = self.ServerPeer(my_port, my_ip)
-            client_peer = self.ClientPeer(peer_port, peer_ip)
-            server_peer.start()
-            play_input = self.PlayInput
-            play_input.start()
-        else:
-            server_peer = self.ServerPeer(my_port, my_ip)
-            client_peer = self.ClientPeer(peer_port, peer_ip)
-            client_peer.peer_ip = ip_addr
-            play_input = self.PlayInput()
-            client_peer.start()
-            play_input.start()
-
-
 if __name__ == "__main__":
 
     ip_addr = input('What IP (or type listen)?:')
 
     if ip_addr == 'listen':
         server_peer = ServerPeer(1776, "")
-        client_peer = ClientPeer(1776, "")
+        client_peer = ClientPeer(1776, None)
         server_peer.start()
-        play_input = PlayInput()
+        play_input = PlayInput(client_peer, server_peer)
         play_input.start()
     elif ip_addr == 'Listen':
         server_peer = ServerPeer(1776, "")
-        client_peer = ClientPeer(1776, "")
+        client_peer = ClientPeer(1776, None)
         server_peer.start()
-        play_input = PlayInput()
+        play_input = PlayInput(client_peer, server_peer)
         play_input.start()
     else:
         server_peer = ServerPeer(1776, "")
-        client_peer = ClientPeer(1776, "")
+        client_peer = ClientPeer(1776, None)
         client_peer.peer_ip = ip_addr
-        play_input = PlayInput()
+        play_input = PlayInput(client_peer, server_peer)
         client_peer.start()
         play_input.start()
 
