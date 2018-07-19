@@ -285,8 +285,6 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Você:"))
         self.label_2.setText(_translate("MainWindow", self.controller.opName + ":"))
 
-
-
     def on_click_1(self):
         self.controller.click_action(0)
     
@@ -350,68 +348,51 @@ class Ui_MainWindow(object):
     def on_press_3(self):
         self.pushButton_3.setIcon(QtGui.QIcon(self.controller.deck.cards[2].image_path))
 
-
     def on_press_4(self):
         self.pushButton_4.setIcon(QtGui.QIcon(self.controller.deck.cards[3].image_path))
-
 
     def on_press_5(self):
         self.pushButton_5.setIcon(QtGui.QIcon(self.controller.deck.cards[4].image_path))
 
-
     def on_press_6(self):
         self.pushButton_6.setIcon(QtGui.QIcon(self.controller.deck.cards[5].image_path))
-
 
     def on_press_7(self):
         self.pushButton_7.setIcon(QtGui.QIcon(self.controller.deck.cards[6].image_path))
 
-
     def on_press_8(self):
         self.pushButton_8.setIcon(QtGui.QIcon(self.controller.deck.cards[7].image_path))
-
 
     def on_press_9(self):
         self.pushButton_9.setIcon(QtGui.QIcon(self.controller.deck.cards[8].image_path))
 
-
     def on_press_10(self):
         self.pushButton_10.setIcon(QtGui.QIcon(self.controller.deck.cards[9].image_path))
-
 
     def on_press_11(self):
         self.pushButton_11.setIcon(QtGui.QIcon(self.controller.deck.cards[10].image_path))
  
-
     def on_press_12(self):
         self.pushButton_12.setIcon(QtGui.QIcon(self.controller.deck.cards[11].image_path))
       
-
     def on_press_13(self):
         self.pushButton_13.setIcon(QtGui.QIcon(self.controller.deck.cards[12].image_path))
     
-
     def on_press_14(self):
         self.pushButton_14.setIcon(QtGui.QIcon(self.controller.deck.cards[13].image_path))
-
 
     def on_press_15(self):
         self.pushButton_15.setIcon(QtGui.QIcon(self.controller.deck.cards[14].image_path))
 
-
     def on_press_16(self):
         self.pushButton_16.setIcon(QtGui.QIcon(self.controller.deck.cards[15].image_path))
-
 
     def on_press_17(self):
         self.pushButton_17.setIcon(QtGui.QIcon(self.controller.deck.cards[16].image_path))
  
-
     def on_press_18(self):
         self.pushButton_18.setIcon(QtGui.QIcon(self.controller.deck.cards[17].image_path))
     
-
-
     def reset_1(self):        
         self.pushButton_1.setIcon(QtGui.QIcon())
     

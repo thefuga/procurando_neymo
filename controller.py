@@ -11,10 +11,11 @@ from PyQt5 import QtWidgets
 import sys
 import roomController
 import time
+import client
 
 class Controller(object):
 
-    def __init__(self, ui, game_over_ui):
+    def __init__(self, ui, room_ui, game_over_ui):
         self.myScore = 0
         self.opScore = 0
         self.myName = "Neymar"
@@ -25,6 +26,7 @@ class Controller(object):
         self.deck = deck.Deck(self.seed)
         self.ui = ui
         self.game_over_ui = game_over_ui
+        self. room_ui = room_ui
         #ui.show_room_window(self)
 
     def click_action(self,id):
@@ -50,7 +52,15 @@ class Controller(object):
                 self.lock_1 = -1
         
         
-
+    def room_rendezvous(self, message_type, room_name):
+        if(message_type == "host"):
+            self.ip_port=client.Client.init_client(consts.ASK_HOST, room_name)
+        elif(room_name == ""):
+            self.ip_port=client.Client.init_client(consts.ASK_ANY_OPP, room_name)
+        else:
+            self.ip_port=client.Client.init_client(consts.ASK_ESP_OPP, room_name)
+        
+    
 
         
 
@@ -62,7 +72,7 @@ def main():
     room_ui = room.Ui_Dialog()
     ui = mainWindow.Ui_MainWindow()
     game_over_ui = gameOver.Ui_Dialog()
-    controller = Controller(ui, game_over_ui)
+    controller = Controller(ui, room_ui, game_over_ui)
     room_ui.setupUi(room_window ,controller)
     ui.setupUi(main_window,controller)
     game_over_ui.setupUi(game_over_window,controller)
