@@ -47,7 +47,7 @@ class Server(object):
                     if len(self.__hosts) > 0:
                         print(query[1:17].decode())
                         print(query[17:].decode())
-                        connection_socket.send(bytes(consts.SRVR_ANSR.encode() + str(self.__hosts[0][1][0]).encode() + ":".encode() + str(self.__hosts[0][1][1]).encode() + str(self.__hosts[0][1][2].encode())).encode()))
+                        connection_socket.send(bytes(consts.SRVR_ANSR.encode() + str(self.__hosts[0][1][0]).encode() + ":".encode() + str(self.__hosts[0][1][1]).encode() + str(self.__hosts[0][1][2].encode()).encode()))
                         self.__hosts.remove(self.__hosts[0])
                     else:
                         connection_socket.send(consts.MSG_NOPE.encode())
