@@ -89,8 +89,10 @@ class PlayInput(threading.Thread):
 
         while self.running == True:
 
-            while(not self.message):
-                pass
+            self.message = bytes(input("").encode())
+
+            #while(not self.message):
+            #   pass
 
             try:
                 self.client_peer.client_socket.sendall(self.message)
@@ -142,6 +144,6 @@ if __name__ == "__main__":
     else:
         peer = Peer(my_ip = ip_addr, listening=False)
 
-    time.sleep(5)
-    peer.play_input.play("a", "b")
+    #time.sleep(5)
+    #peer.play_input.play("a", "b")
 
