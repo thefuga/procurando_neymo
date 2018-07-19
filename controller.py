@@ -31,6 +31,7 @@ class Controller(object):
         self.peer = None
         #ui.show_room_window(self)
 
+
     def click_action(self,id):
         if self.lock_1 != id:
             if self.lock_2 == -1:
@@ -42,15 +43,22 @@ class Controller(object):
                     self.ui.lcdNumber.display(self.myScore)
                     if((self.myScore + self.opScore) >=9):
                         if(self.myScore > self.opScore):
-                            self.game_over_ui.label.setText("Você ganhou!")
+                            self.game_over_ui.label.setText("O HEXA VEM!")
                         else:
-                            self.game_over_ui.label.setText( "Seu adversário ganhou!")
+                            self.game_over_ui.label.setText( "O HEXA NÃO VEM!")
                         self.game_over_ui.game_over_window.show()
                         self.myScore = self.opScore = 0
                 else:
                     time.sleep(1)
-                    self.peer.play_input.play("01", "02") #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
+                    self.myTurn = False
                     self.ui.reset_buttons(id)
+                    self.peer.play_input.play(message_type=consts.MSG_YOUR_TURN, first_card="01", second_card="02") #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
+                    self.play_control()
+                    self.ui.set_all_buttons(self.myTurn)
+                    #while(not self.myTurn):
+                    #    if self.peer.server_peer or self.peer.client_peer:
+                    #        self.myTurn = True
+                    
                 self.lock_2 = -1
                 self.lock_1 = -1
         
@@ -61,6 +69,8 @@ class Controller(object):
             self.ip_port_seed=client.init_client(consts.ASK_HOST, room_name=room_name_1, seed = numpy.random.randint(9))
             self.myTurn = True
             self.peer = peer.Peer(server_port=self.ip_port_seed[1], my_port=self.ip_port_seed[1])
+            self.peer.client_peer.active = True
+            self.peer.server_peer.active = True
         elif(room_name_1 == ""):
             self.ip_port_seed=client.init_client(consts.ASK_ANY_OPP)
             self.myTurn = False
@@ -75,7 +85,17 @@ class Controller(object):
         self.room_ui.room_window.hide()
         self.ui.main_window.show()
         self.ui.set_all_buttons(self.myTurn)
+        self.play_control()
     
+
+    def play_control(self):
+        print("entering while")
+        while(not(self.peer.client_peer.active or self.peer.server_peer.active)):
+            pass
+        self.myTurn = True
+        #self.peer.play_input.active = True
+        self.peer.play_input.play(message_type=consts.MSG_MY_TURN)
+        print("leaving while")
 
         
 
