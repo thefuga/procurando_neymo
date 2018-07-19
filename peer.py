@@ -163,14 +163,3 @@ class Peer():
             self.play_input.start()
 
 
-if __name__ == "__main__":
-    ip_addr = input('What IP (or type listen)?:')
-
-    if ip_addr == 'listen':
-        peer = Peer()
-    else:
-        peer = Peer(my_ip = ip_addr, listening=False)
-
-    #time.sleep(5)
-    #peer.play_input.play("a", "b")
-

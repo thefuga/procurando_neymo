@@ -54,11 +54,7 @@ class Controller(object):
                     self.ui.reset_buttons(id)
                     self.peer.play_input.play(message_type=consts.MSG_YOUR_TURN, first_card="01", second_card="02") #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
                     self.play_control()
-                    self.ui.set_all_buttons(self.myTurn)
-                    #while(not self.myTurn):
-                    #    if self.peer.server_peer or self.peer.client_peer:
-                    #        self.myTurn = True
-                    
+
                 self.lock_2 = -1
                 self.lock_1 = -1
         
@@ -89,13 +85,12 @@ class Controller(object):
     
 
     def play_control(self):
-        print("entering while")
+        self.ui.set_all_buttons(False)
         while(not(self.peer.client_peer.active or self.peer.server_peer.active)):
             pass
         self.myTurn = True
-        #self.peer.play_input.active = True
+        self.ui.set_all_buttons(True)
         self.peer.play_input.play(message_type=consts.MSG_MY_TURN)
-        print("leaving while")
 
         
 
