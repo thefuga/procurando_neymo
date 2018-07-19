@@ -11,7 +11,15 @@ class Client(object):
         
 
 
-    def init_client(self, message):
+    def init_client(self, message_type, room_name=None):
+
+        if(len(room_name) > 16):
+            room_name = room_name[:16]
+        elif(len(room_name) < 16):
+            while len(room_name) < 16:
+                room_name += r"$"
+
+        message = bytes(message_type.encode() + room_name.encode())
 
         self.__client_socket.connect((self.__server_name, self.__server_port))
 
@@ -44,6 +52,6 @@ class Client(object):
         
 
 if __name__ == "__main__":
-    message = bytes(consts.ASK_HOST.encode()) + r"teste$$$$$$$$$$$".encode()
+    #message = bytes(consts.ASK_HOST.encode()) + r"teste$$$$$$$$$$$".encode()
     client = Client()
-    print(client.init_client(message))
+    print(client.init_client(consts.ASK_HOST, room_name="teste"))
