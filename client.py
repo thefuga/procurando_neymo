@@ -62,4 +62,4 @@ class Client(object):
 if __name__ == "__main__":
     import random
     client = Client()
-    print(client.init_client(consts.ASK_HOST, room_name="teste", seed=random.random()))
+    print(client.init_client(consts.ASK_ESP_OPP, room_name="teste2", seed=random.random()))
