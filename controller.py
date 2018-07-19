@@ -41,35 +41,33 @@ class Controller(object):
                 if(self.lock_2 == self.deck.cards[id].image_path):
                     self.myScore+=1
                     self.ui.lcdNumber.display(self.myScore)
-                    if((self.myScore + self.opScore) >=9):
+                    if((self.myScore >= 9) or (self.opScore >=9)):
                         if(self.myScore > self.opScore):
                             self.game_over_ui.label.setText("O HEXA VEM!")
                         else:
                             self.game_over_ui.label.setText( "O HEXA NÃO VEM!")
+                        self.peer.play_input.play(message_type=consts.MSG_YOUR_TURN, 
+                        first_card=str(self.lock_1) if self.lock_1 >= 10 else "0" +  str(self.lock_1), 
+                        second_card=str(id) if id >= 10 else "0" + str(id), score="0" + str(self.myScore)) #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
+                        self.ui.main_window.hide()
                         self.game_over_ui.game_over_window.show()
-                        self.myScore = self.opScore = 0
+                        
                 else:
                     time.sleep(1)
                     self.myTurn = False
                     self.ui.reset_buttons(id)
                     self.peer.play_input.play(message_type=consts.MSG_YOUR_TURN, 
                     first_card=str(self.lock_1) if self.lock_1 >= 10 else "0" +  str(self.lock_1), 
-                    second_card=str(id) if id >= 10 else "0" + str(id)) #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
+                    second_card=str(id) if id >= 10 else "0" + str(id), score="0" + str(self.myScore)) #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
                     self.play_control()
                     message = self.peer.server_peer.message or self.peer.client_peer.message
-                    message[1], message[2]
-                    self.ui.lcdNumber_2.display(int(message[3]))
-                    if(int(message[1])==0):
-                        self.ui.on_press_1()
-                    if(int(message[2])==1):
-                        self.ui.on_press_2()
-                    if self.opScore < int(message[3]):
-                        self.opScore = int(message[3])
-                    else:
-                        pass
-                        #reseto os botoes
-                    #aqui eu atualizo o placar do adversario
-                    #se muda o placar dele eu n reseto, se muda eu reseto
+                    self.opScore = int(message[3])
+                    self.ui.lcdNumber_2.display(self.opScore)
+                    if(self.opScore >= 9):
+                        self.game_over_ui.label.setText( "O HEXA NÃO VEM!")
+                        self.ui.main_window.hide()
+                        self.game_over_ui.game_over_window.show()
+                        
 
                 self.lock_2 = -1
                 self.lock_1 = -1
