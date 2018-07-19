@@ -13,7 +13,7 @@ class Ui_Dialog(object):
         self.game_over_window = Dialog
         self.controller = controller
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 120)
+        Dialog.resize(400, 80)
         Dialog.setWindowTitle("Fim de jogo")
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 10, 381, 61))
