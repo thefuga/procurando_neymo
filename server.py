@@ -24,7 +24,7 @@ class Server(object):
             if(query):
                 if(query[0:1].decode() == consts.ASK_HOST):
                     print("ASK_HOST")
-                    self.__hosts.append((query[1:17].decode(), address, query[17:].decode()))
+                    self.__hosts.append((query[1:17s].decode(), address, query[17:].decode()))
                     print(query[1:17].decode())
                     connection_socket.send(bytes(consts.SRVR_ANSR.encode() + str(address[0]).encode() + ":".encode() + str(address[1]).encode() + query[17:]))
                     print(address[0] + ":" + str(address[1]))
