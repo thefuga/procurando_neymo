@@ -59,7 +59,7 @@ class Controller(object):
         if(message_type == "host"):
             self.ip_port_seed=client.init_client(consts.ASK_HOST, room_name=room_name_1, seed = numpy.random.randint(9))
             self.myTurn = True
-            self.peer = peer.Peer(server_ip=self.ip_port_seed[0], server_port=self.ip_port_seed[1], my_port=self.ip_port_seed[1])
+            self.peer = peer.Peer(server_port=self.ip_port_seed[1], my_port=self.ip_port_seed[1])
         elif(room_name_1 == ""):
             self.ip_port_seed=client.init_client(consts.ASK_ANY_OPP)
             self.myTurn = False
