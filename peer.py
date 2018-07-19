@@ -119,8 +119,8 @@ if __name__ == "__main__":
         play_input.start()
     else:
         server_peer = ServerPeer(1776, "")
-        client_peer = ClientPeer(1776, None)
-        client_peer.peer_ip = ip_addr
+        client_peer = ClientPeer(1776, ip_addr)
+        client_peer.__peer_ip = ip_addr
         play_input = PlayInput(client_peer, server_peer)
         client_peer.start()
         play_input.start()
