@@ -57,7 +57,9 @@ class ClientPeer(threading.Thread):
 
         # Select loop for listen
         while self.running == True:
+
             input_ready, output_ready, except_ready = select.select ([self.client_socket], [self.client_socket], [])
+
             for input_item in input_ready:
                 # Handle sockets
                 data = self.client_socket.recv(1024)
@@ -65,6 +67,7 @@ class ClientPeer(threading.Thread):
                     print("Them: " + data.decode())
                 else:
                     break
+
             time.sleep(0)
 
 
@@ -79,29 +82,39 @@ class PlayInput(threading.Thread):
         self.client_peer = client_peer
         self.server_peer = server_peer        
         self.running = 1
+        self.message = None
         
 
     def run(self):
 
         while self.running == True:
 
-            text = bytes(input('').encode())
+            while(not self.message):
+                pass
 
             try:
-                self.client_peer.client_socket.sendall(text)
+                self.client_peer.client_socket.sendall(self.message)
             except Exception:
                 pass
 
             try:
-                self.server_peer.connection_socket.sendall(text)
+                self.server_peer.connection_socket.sendall(self.message)
             except Exception:
                 pass
+
+            self.message = None
 
             time.sleep(0)
         
         
     def kill(self):
         self.running = 0
+
+
+    def play(self, first_card, second_card):
+        
+        self.message = first_card#, second_card
+
 
 
 class Peer():
@@ -128,4 +141,7 @@ if __name__ == "__main__":
         peer = Peer()
     else:
         peer = Peer(my_ip = ip_addr, listening=False)
+
+    time.sleep(5)
+    peer.play_input.play("a", "b")
 
