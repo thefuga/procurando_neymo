@@ -283,7 +283,7 @@ class Ui_MainWindow(object):
         self.pushButton_17.setText(_translate("MainWindow", ""))
         self.pushButton_18.setText(_translate("MainWindow", ""))
         self.label.setText(_translate("MainWindow", "Você:"))
-        self.label_2.setText(_translate("MainWindow", "Adversário:"))
+        self.label_2.setText(_translate("MainWindow", self.controller.opName + ":"))
 
 
 
@@ -412,76 +412,58 @@ class Ui_MainWindow(object):
     
 
 
-    def reset_1(self):
-        
+    def reset_1(self):        
         self.pushButton_1.setIcon(QtGui.QIcon())
     
-    def reset_2(self):
-        
+    def reset_2(self):        
         self.pushButton_2.setIcon(QtGui.QIcon())
     
-    def reset_3(self):
-        
+    def reset_3(self):        
         self.pushButton_3.setIcon(QtGui.QIcon())
     
-    def reset_4(self):
-        
+    def reset_4(self):        
         self.pushButton_4.setIcon(QtGui.QIcon())
     
-    def reset_5(self):
-        
+    def reset_5(self):        
         self.pushButton_5.setIcon(QtGui.QIcon())
     
-    def reset_6(self):
-        
+    def reset_6(self):        
         self.pushButton_6.setIcon(QtGui.QIcon())
     
-    def reset_7(self):
-        
+    def reset_7(self):        
         self.pushButton_7.setIcon(QtGui.QIcon())
     
-    def reset_8(self):
-        
+    def reset_8(self):        
         self.pushButton_8.setIcon(QtGui.QIcon())
     
-    def reset_9(self):
-        
+    def reset_9(self):        
         self.pushButton_9.setIcon(QtGui.QIcon())
     
-    def reset_10(self):
-        
+    def reset_10(self):        
         self.pushButton_10.setIcon(QtGui.QIcon())
     
-    def reset_11(self):
-        
+    def reset_11(self):        
         self.pushButton_11.setIcon(QtGui.QIcon())
     
-    def reset_12(self):
-        
+    def reset_12(self):        
         self.pushButton_12.setIcon(QtGui.QIcon())
     
-    def reset_13(self):
-        
+    def reset_13(self):        
         self.pushButton_13.setIcon(QtGui.QIcon())
     
-    def reset_14(self):
-        
+    def reset_14(self):        
         self.pushButton_14.setIcon(QtGui.QIcon())
     
-    def reset_15(self):
-        
+    def reset_15(self):        
         self.pushButton_15.setIcon(QtGui.QIcon())
     
-    def reset_16(self):
-        
+    def reset_16(self):        
         self.pushButton_16.setIcon(QtGui.QIcon())
     
-    def reset_17(self):
-        
+    def reset_17(self):        
         self.pushButton_17.setIcon(QtGui.QIcon())
     
-    def reset_18(self):
-        
+    def reset_18(self):        
         self.pushButton_18.setIcon(QtGui.QIcon())
     
     def reset_buttons(self, id):
@@ -558,5 +540,43 @@ class Ui_MainWindow(object):
             self.reset_17()
         elif id == 17:
             self.reset_18()
-        
-       
+
+    def set_all_buttons(self, setter):
+        self.pushButton_1.setEnabled(setter)
+        self.pushButton_2.setEnabled(setter)
+        self.pushButton_3.setEnabled(setter)
+        self.pushButton_4.setEnabled(setter)
+        self.pushButton_5.setEnabled(setter)
+        self.pushButton_6.setEnabled(setter)
+        self.pushButton_7.setEnabled(setter)
+        self.pushButton_8.setEnabled(setter)
+        self.pushButton_9.setEnabled(setter)
+        self.pushButton_10.setEnabled(setter)
+        self.pushButton_11.setEnabled(setter)
+        self.pushButton_12.setEnabled(setter)
+        self.pushButton_13.setEnabled(setter)
+        self.pushButton_14.setEnabled(setter)
+        self.pushButton_15.setEnabled(setter)
+        self.pushButton_16.setEnabled(setter)
+        self.pushButton_17.setEnabled(setter)
+        self.pushButton_18.setEnabled(setter)
+
+    def reset_all_buttons(self):
+        self.reset_1()
+        self.reset_2()
+        self.reset_3()
+        self.reset_4()
+        self.reset_5()
+        self.reset_6()
+        self.reset_7()
+        self.reset_8()
+        self.reset_9()
+        self.reset_10()
+        self.reset_11()
+        self.reset_12()
+        self.reset_13()
+        self.reset_14()
+        self.reset_15()
+        self.reset_16()
+        self.reset_17()
+        self.reset_18()

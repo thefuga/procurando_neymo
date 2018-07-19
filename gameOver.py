@@ -10,9 +10,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog, controller):
+        self.game_over_window = Dialog
+        self.controller = controller
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 120)
-        Dialog.setWindowTitle("")
+        Dialog.setWindowTitle("Fim de jogo")
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(10, 10, 381, 61))
         self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -33,7 +35,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        self.label.setText(_translate("Dialog", "Acabou o jogo!"))
+        
         self.pushButton.setText(_translate("Dialog", "Buscar nova sala"))
         self.pushButton_2.setText(_translate("Dialog", "Jogar novamente"))
         self.pushButton_3.setText(_translate("Dialog", "Sair"))

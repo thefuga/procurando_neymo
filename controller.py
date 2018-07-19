@@ -14,14 +14,17 @@ import time
 
 class Controller(object):
 
-    def __init__(self, ui):
+    def __init__(self, ui, game_over_ui):
         self.myScore = 0
         self.opScore = 0
+        self.myName = "Neymar"
+        self.opName = "Mbappé"
         self.lock_1 = -1
         self.lock_2 = -1
         self.seed = random.random()
         self.deck = deck.Deck(self.seed)
         self.ui = ui
+        self.game_over_ui = game_over_ui
         #ui.show_room_window(self)
 
     def click_action(self,id):
@@ -33,6 +36,13 @@ class Controller(object):
                 if(self.lock_2 == self.deck.cards[id].image_path):
                     self.myScore+=1
                     self.ui.lcdNumber.display(self.myScore)
+                    if((self.myScore + self.opScore) >=9):
+                        if(self.myScore > self.opScore):
+                            self.game_over_ui.label.setText("Você ganhou!")
+                        else:
+                            self.game_over_ui.label.setText( self.opName + " ganhou!")
+                        self.game_over_ui.game_over_window.show()
+                        self.myScore = self.opScore = 0
                 else:
                     time.sleep(1)
                     self.ui.reset_buttons(id)
@@ -48,13 +58,17 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     room_window = QtWidgets.QMainWindow()
     main_window = QtWidgets.QMainWindow()
+    game_over_window = QtWidgets.QMainWindow()
     room_ui = room.Ui_Dialog()
     ui = mainWindow.Ui_MainWindow()
-    controller = Controller(ui)
+    game_over_ui = gameOver.Ui_Dialog()
+    controller = Controller(ui, game_over_ui)
     room_ui.setupUi(room_window ,controller)
     ui.setupUi(main_window,controller)
+    game_over_ui.setupUi(game_over_window,controller)
     main_window.show()
     room_window.show() 
+    #sgame_over_window.show()
       #  if (controller.lock_1 != -1 and controller.lock_2 != -1):
       #      if controller.deck.cards[controller.lock_1].id == controller.deck.cards[controller.lock_2].id:
      #           controller.myScore = controller.myScore + 1
