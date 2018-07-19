@@ -200,42 +200,62 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.pushButton_1.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_1.pressed.connect(self.on_click_1)
-        self.pushButton_2.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_2.pressed.connect(self.on_click_2)
-        self.pushButton_3.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_3.pressed.connect(self.on_click_3)
-        self.pushButton_4.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_4.pressed.connect(self.on_click_4)
-        self.pushButton_5.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_5.pressed.connect(self.on_click_5)
-        self.pushButton_6.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_6.pressed.connect(self.on_click_6)
-        self.pushButton_7.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_7.pressed.connect(self.on_click_7)
-        self.pushButton_8.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_8.pressed.connect(self.on_click_8)
-        self.pushButton_9.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_9.pressed.connect(self.on_click_9)
-        self.pushButton_10.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_10.pressed.connect(self.on_click_10)
-        self.pushButton_11.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_11.pressed.connect(self.on_click_11)
-        self.pushButton_12.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_12.pressed.connect(self.on_click_12)
-        self.pushButton_13.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_13.pressed.connect(self.on_click_13)
-        self.pushButton_14.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_14.pressed.connect(self.on_click_14)
-        self.pushButton_15.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_15.pressed.connect(self.on_click_15)
-        self.pushButton_16.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_16.pressed.connect(self.on_click_16)
-        self.pushButton_17.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_17.pressed.connect(self.on_click_17)
-        self.pushButton_18.setIconSize(QtCore.QSize(130,199))
-        self.pushButton_18.pressed.connect(self.on_click_18)
+        self.pushButton_1.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_1.clicked.connect(self.on_click_1)
+        self.pushButton_2.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_2.clicked.connect(self.on_click_2)
+        self.pushButton_3.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_3.clicked.connect(self.on_click_3)
+        self.pushButton_4.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_4.clicked.connect(self.on_click_4)
+        self.pushButton_5.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_5.clicked.connect(self.on_click_5)
+        self.pushButton_6.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_6.clicked.connect(self.on_click_6)
+        self.pushButton_7.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_7.clicked.connect(self.on_click_7)
+        self.pushButton_8.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_8.clicked.connect(self.on_click_8)
+        self.pushButton_9.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_9.clicked.connect(self.on_click_9)
+        self.pushButton_10.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_10.clicked.connect(self.on_click_10)
+        self.pushButton_11.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_11.clicked.connect(self.on_click_11)
+        self.pushButton_12.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_12.clicked.connect(self.on_click_12)
+        self.pushButton_13.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_13.clicked.connect(self.on_click_13)
+        self.pushButton_14.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_14.clicked.connect(self.on_click_14)
+        self.pushButton_15.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_15.clicked.connect(self.on_click_15)
+        self.pushButton_16.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_16.clicked.connect(self.on_click_16)
+        self.pushButton_17.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_17.clicked.connect(self.on_click_17)
+        self.pushButton_18.setIconSize(QtCore.QSize(129,199))
+        self.pushButton_18.clicked.connect(self.on_click_18)
+
+        self.pushButton_1.pressed.connect(self.on_press_1)
+        self.pushButton_2.pressed.connect(self.on_press_2)
+        self.pushButton_3.pressed.connect(self.on_press_3)
+        self.pushButton_4.pressed.connect(self.on_press_4)
+        self.pushButton_5.pressed.connect(self.on_press_5)
+        self.pushButton_6.pressed.connect(self.on_press_6)
+        self.pushButton_7.pressed.connect(self.on_press_7)
+        self.pushButton_8.pressed.connect(self.on_press_8)
+        self.pushButton_9.pressed.connect(self.on_press_9)
+        self.pushButton_10.pressed.connect(self.on_press_10)
+        self.pushButton_11.pressed.connect(self.on_press_11)
+        self.pushButton_12.pressed.connect(self.on_press_12)
+        self.pushButton_13.pressed.connect(self.on_press_13)
+        self.pushButton_14.pressed.connect(self.on_press_14)
+        self.pushButton_15.pressed.connect(self.on_press_15)
+        self.pushButton_16.pressed.connect(self.on_press_16)
+        self.pushButton_17.pressed.connect(self.on_press_17)
+        self.pushButton_18.pressed.connect(self.on_press_18)
+
 
 
         self.retranslateUi(MainWindow)
@@ -265,80 +285,132 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Você:"))
         self.label_2.setText(_translate("MainWindow", "Adversário:"))
 
+
+
     def on_click_1(self):
-        self.pushButton_1.setIcon(QtGui.QIcon(self.controller.deck.cards[0].image_path))
+        self.controller.click_action(0)
     
-                
-
-            
-
     def on_click_2(self):
-        self.pushButton_2.setIcon(QtGui.QIcon(self.controller.deck.cards[1].image_path))
-   
+        self.controller.click_action(1)
 
     def on_click_3(self):
+        self.controller.click_action(2)
+
+    def on_click_4(self):
+        self.controller.click_action(3)
+
+    def on_click_5(self):
+        self.controller.click_action(4)
+
+    def on_click_6(self):
+        self.controller.click_action(5)
+
+    def on_click_7(self):
+        self.controller.click_action(6)
+
+    def on_click_8(self):
+        self.controller.click_action(7)
+
+    def on_click_9(self):
+        self.controller.click_action(8)
+
+    def on_click_10(self):
+        self.controller.click_action(9)
+
+    def on_click_11(self):
+        self.controller.click_action(10)
+
+    def on_click_12(self):
+        self.controller.click_action(11)
+
+    def on_click_13(self):
+        self.controller.click_action(12)
+
+    def on_click_14(self):
+        self.controller.click_action(13)
+
+    def on_click_15(self):
+        self.controller.click_action(14)
+
+    def on_click_16(self):
+        self.controller.click_action(15)
+
+    def on_click_17(self):
+        self.controller.click_action(16)
+
+    def on_click_18(self):
+        self.controller.click_action(17)
+
+    def on_press_1(self):
+        self.pushButton_1.setIcon(QtGui.QIcon(self.controller.deck.cards[0].image_path))
+
+    def on_press_2(self):
+        self.pushButton_2.setIcon(QtGui.QIcon(self.controller.deck.cards[1].image_path))
+   
+    def on_press_3(self):
         self.pushButton_3.setIcon(QtGui.QIcon(self.controller.deck.cards[2].image_path))
 
 
-    def on_click_4(self):
+    def on_press_4(self):
         self.pushButton_4.setIcon(QtGui.QIcon(self.controller.deck.cards[3].image_path))
 
 
-    def on_click_5(self):
+    def on_press_5(self):
         self.pushButton_5.setIcon(QtGui.QIcon(self.controller.deck.cards[4].image_path))
 
 
-    def on_click_6(self):
+    def on_press_6(self):
         self.pushButton_6.setIcon(QtGui.QIcon(self.controller.deck.cards[5].image_path))
 
 
-    def on_click_7(self):
+    def on_press_7(self):
         self.pushButton_7.setIcon(QtGui.QIcon(self.controller.deck.cards[6].image_path))
 
 
-    def on_click_8(self):
+    def on_press_8(self):
         self.pushButton_8.setIcon(QtGui.QIcon(self.controller.deck.cards[7].image_path))
 
 
-    def on_click_9(self):
+    def on_press_9(self):
         self.pushButton_9.setIcon(QtGui.QIcon(self.controller.deck.cards[8].image_path))
 
 
-    def on_click_10(self):
+    def on_press_10(self):
         self.pushButton_10.setIcon(QtGui.QIcon(self.controller.deck.cards[9].image_path))
 
 
-    def on_click_11(self):
+    def on_press_11(self):
         self.pushButton_11.setIcon(QtGui.QIcon(self.controller.deck.cards[10].image_path))
  
 
-    def on_click_12(self):
+    def on_press_12(self):
         self.pushButton_12.setIcon(QtGui.QIcon(self.controller.deck.cards[11].image_path))
       
 
-    def on_click_13(self):
+    def on_press_13(self):
         self.pushButton_13.setIcon(QtGui.QIcon(self.controller.deck.cards[12].image_path))
     
 
-    def on_click_14(self):
+    def on_press_14(self):
         self.pushButton_14.setIcon(QtGui.QIcon(self.controller.deck.cards[13].image_path))
 
 
-    def on_click_15(self):
+    def on_press_15(self):
         self.pushButton_15.setIcon(QtGui.QIcon(self.controller.deck.cards[14].image_path))
 
 
-    def on_click_16(self):
+    def on_press_16(self):
         self.pushButton_16.setIcon(QtGui.QIcon(self.controller.deck.cards[15].image_path))
 
 
-    def on_click_17(self):
+    def on_press_17(self):
         self.pushButton_17.setIcon(QtGui.QIcon(self.controller.deck.cards[16].image_path))
  
 
-    def on_click_18(self):
+    def on_press_18(self):
         self.pushButton_18.setIcon(QtGui.QIcon(self.controller.deck.cards[17].image_path))
     
+
 
     def reset_1(self):
         
@@ -412,7 +484,7 @@ class Ui_MainWindow(object):
         
         self.pushButton_18.setIcon(QtGui.QIcon())
     
-    def reset_buttons(self):
+    def reset_buttons(self, id):
         if self.controller.lock_1 == 0:
             self.reset_1()
         elif self.controller.lock_1 == 1:
@@ -450,40 +522,41 @@ class Ui_MainWindow(object):
         elif self.controller.lock_1 == 17:
             self.reset_18()
 
-        if self.controller.lock_2 == 0:
+        if id == 0:
             self.reset_1()
-        elif self.controller.lock_2 == 1:
+        elif id == 1:
             self.reset_2()
-        elif self.controller.lock_2 == 2:
+        elif id == 2:
             self.reset_3()
-        elif self.controller.lock_2 == 3:
+        elif id == 3:
             self.reset_4()
-        elif self.controller.lock_2 == 4:
+        elif id == 4:
             self.reset_5()
-        elif self.controller.lock_2 == 5:
+        elif id == 5:
             self.reset_6()
-        elif self.controller.lock_2 == 6:
+        elif id == 6:
             self.reset_7()
-        elif self.controller.lock_2 == 7:
+        elif id == 7:
             self.reset_8()
-        elif self.controller.lock_2 == 8:
+        elif id == 8:
             self.reset_9()
-        elif self.controller.lock_2 == 9:
+        elif id == 9:
             self.reset_10()
-        elif self.controller.lock_2 == 10:
+        elif id == 10:
             self.reset_11()
-        elif self.controller.lock_2 == 11:
+        elif id == 11:
             self.reset_12()
-        elif self.controller.lock_2 == 12:
+        elif id == 12:
             self.reset_13()
-        elif self.controller.lock_2 == 13:
+        elif id == 13:
             self.reset_14()
-        elif self.controller.lock_2 == 14:
+        elif id == 14:
             self.reset_15()
-        elif self.controller.lock_2 == 15:
+        elif id == 15:
             self.reset_16()
-        elif self.controller.lock_2 == 16:
+        elif id == 16:
             self.reset_17()
-        elif self.controller.lock_2 == 17:
+        elif id == 17:
             self.reset_18()
+        
        
