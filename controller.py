@@ -55,7 +55,7 @@ class Controller(object):
     def room_rendezvous(self, message_type, room_name_1):
         client = clt.Client()
         if(message_type == "host"):
-            self.ip_port_seed=client.init_client(consts.ASK_HOST, room_name=room_name_1, seed = numpy.random.randint(1))
+            self.ip_port_seed=client.init_client(consts.ASK_HOST, room_name=room_name_1, seed = numpy.random.randint(9))
             self.myTurn = True
         elif(room_name_1 == ""):
             self.ip_port_seed=client.init_client(consts.ASK_ANY_OPP)
