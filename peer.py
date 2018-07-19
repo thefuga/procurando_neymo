@@ -23,7 +23,7 @@ class ServerPeer(threading.Thread):
         self.__connection_socket, address = self.__socket.accept()
             
         while self.__running:
-            input_ready, output_ready, except_ready = select.select ([self.self.__socket], [self.self.__socket], [])
+            input_ready, output_ready, except_ready = select.select ([self.__socket], [self.__socket], [])
             for input_item in input_ready:
                 # Handle sockets
                 data = self.__connection_socket.recv(1024)
