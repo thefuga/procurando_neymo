@@ -25,10 +25,11 @@ class Client(object):
         if(message[0:1].decode() == consts.ASK_HOST):
             self.__client_socket.send(message)
             response = self.__client_socket.recv(40)
-            tokens = response[1:18].decode().split(":")
+            tokens = response[1:].decode().split(":")
             ip = tokens[0]
-            port = int(tokens[1])
-            new_seed = int(response[18:].decode())
+            tokens = tokens[1].split("§")
+            port = int(tokens[0])
+            new_seed = int(tokens[1])
             self.__client_socket.close()
             print(ip, port, new_seed)
             return(ip, port, new_seed)
@@ -38,10 +39,11 @@ class Client(object):
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
-            tokens = response[1:18].decode().split(":")
+            tokens = response[1:].decode().split(":")
             ip = tokens[0]
-            port = int(tokens[1])
-            new_seed = int(response[18:].decode())
+            tokens = tokens[1].split("§")
+            port = int(tokens[0])
+            new_seed = int(tokens[1])
             self.__client_socket.close()
             return(ip, port, new_seed)
         elif(message[0:1].decode() == consts.ASK_ANY_OPP):
@@ -50,10 +52,11 @@ class Client(object):
             if(response.decode() == consts.MSG_NOPE):
                 self.__client_socket.close()
                 return None
-            tokens = response[1:18].decode().split(":")
+            tokens = response[1:].decode().split(":")
             ip = tokens[0]
-            port = int(tokens[1])
-            new_seed = int(response[18:].decode())
+            tokens = tokens[1].split("§")
+            port = int(tokens[0])
+            new_seed = int(tokens[1])
             self.__client_socket.close()
             return(ip, port, new_seed)
 
