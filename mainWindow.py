@@ -523,6 +523,81 @@ class Ui_MainWindow(object):
         elif id == 17:
             self.reset_18()
 
+    def lock_buttons(self, id):
+        if self.controller.lock_1 == 0:
+            self.pushButton_1.setEnabled(False)
+        elif self.controller.lock_1 == 1:
+            self.pushButton_2.setEnabled(False)
+        elif self.controller.lock_1 == 2:
+            self.pushButton_3.setEnabled(False)
+        elif self.controller.lock_1 == 3:
+            self.pushButton_4.setEnabled(False)
+        elif self.controller.lock_1 == 4:
+            self.pushButton_5.setEnabled(False)
+        elif self.controller.lock_1 == 5:
+            self.pushButton_6.setEnabled(False)
+        elif self.controller.lock_1 == 6:
+            self.pushButton_7.setEnabled(False)
+        elif self.controller.lock_1 == 7:
+            self.pushButton_8.setEnabled(False)
+        elif self.controller.lock_1 == 8:
+            self.pushButton_9.setEnabled(False)
+        elif self.controller.lock_1 == 9:
+            self.pushButton_10.setEnabled(False)
+        elif self.controller.lock_1 == 10:
+            self.pushButton_11.setEnabled(False)
+        elif self.controller.lock_1 == 11:
+            self.pushButton_12.setEnabled(False)
+        elif self.controller.lock_1 == 12:
+            self.pushButton_13.setEnabled(False)
+        elif self.controller.lock_1 == 13:
+            self.pushButton_14.setEnabled(False)
+        elif self.controller.lock_1 == 14:
+            self.pushButton_15.setEnabled(False)
+        elif self.controller.lock_1 == 15:
+            self.pushButton_16.setEnabled(False)
+        elif self.controller.lock_1 == 16:
+            self.pushButton_17.setEnabled(False)
+        elif self.controller.lock_1 == 17:
+            self.pushButton_18.setEnabled(False)
+
+        if id == 0:
+            self.pushButton_1.setEnabled(False)
+        elif id == 1:
+            self.pushButton_2.setEnabled(False)
+        elif id == 2:
+            self.pushButton_3.setEnabled(False)
+        elif id == 3:
+            self.pushButton_4.setEnabled(False)
+        elif id == 4:
+            self.pushButton_5.setEnabled(False)
+        elif id == 5:
+            self.pushButton_6.setEnabled(False)
+        elif id == 6:
+            self.pushButton_7.setEnabled(False)
+        elif id == 7:
+            self.pushButton_8.setEnabled(False)
+        elif id == 8:
+            self.pushButton_9.setEnabled(False)
+        elif id == 9:
+            self.pushButton_10.setEnabled(False)
+        elif id == 10:
+            self.pushButton_11.setEnabled(False)
+        elif id == 11:
+            self.pushButton_12.setEnabled(False)
+        elif id == 12:
+            self.pushButton_13.setEnabled(False)
+        elif id == 13:
+            self.pushButton_14.setEnabled(False)
+        elif id == 14:
+            self.pushButton_15.setEnabled(False)
+        elif id == 15:
+            self.pushButton_16.setEnabled(False)
+        elif id == 16:
+            self.pushButton_17.setEnabled(False)
+        elif id == 17:
+            self.pushButton_18.setEnabled(False)
+
     def set_all_buttons(self, setter):
         pass
         #self.pushButton_1.setEnabled(setter)

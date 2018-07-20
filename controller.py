@@ -40,6 +40,7 @@ class Controller(object):
             else:
                 if(self.lock_2 == self.deck.cards[id].image_path):
                     self.myScore+=1
+                    self.ui.lock_buttons(id)
                     self.ui.lcdNumber.display(self.myScore)
                     if((self.myScore >= 9) or (self.opScore >=9)):
                         if(self.myScore > self.opScore):
