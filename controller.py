@@ -15,6 +15,7 @@ import numpy
 import client as clt
 import peer
 
+
 class Controller(object):
 
     def __init__(self, ui, room_ui, game_over_ui):
@@ -24,12 +25,10 @@ class Controller(object):
         self.lock_2 = -1
         self.myTurn = True
         self.seed = random.random()
-        #self.deck = deck.Deck(self.seed)
         self.ui = ui
         self.game_over_ui = game_over_ui
         self. room_ui = room_ui
         self.peer = None
-        #ui.show_room_window(self)
 
 
     def click_action(self,id):
@@ -49,7 +48,7 @@ class Controller(object):
                             self.game_over_ui.label.setText( "O HEXA NÃO VEM!")
                         self.peer.play_input.play(message_type=consts.MSG_YOUR_TURN, 
                         first_card=str(self.lock_1) if self.lock_1 >= 10 else "0" +  str(self.lock_1), 
-                        second_card=str(id) if id >= 10 else "0" + str(id), score="0" + str(self.myScore)) #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
+                        second_card=str(id) if id >= 10 else "0" + str(id), score="0" + str(self.myScore)) 
                         self.ui.main_window.hide()
                         self.game_over_ui.game_over_window.show()
                         
@@ -59,7 +58,7 @@ class Controller(object):
                     self.ui.reset_buttons(id)
                     self.peer.play_input.play(message_type=consts.MSG_YOUR_TURN, 
                     first_card=str(self.lock_1) if self.lock_1 >= 10 else "0" +  str(self.lock_1), 
-                    second_card=str(id) if id >= 10 else "0" + str(id), score="0" + str(self.myScore)) #enviar as cartas que foram jogadas. Atualmente, o outro jogador está recebendo e printando "TESTE"
+                    second_card=str(id) if id >= 10 else "0" + str(id), score="0" + str(self.myScore))
                     self.play_control()
                     message = self.peer.server_peer.message or self.peer.client_peer.message
                     self.opScore = int(message[3])
@@ -107,9 +106,15 @@ class Controller(object):
         self.ui.set_all_buttons(True)
         self.peer.play_input.play(message_type=consts.MSG_MY_TURN)
 
-        
 
 def main():
+    def myExitHandler():
+        controller.peer.client_peer.kill()
+        controller.peer.server_peer.kill()
+        controller.peer.play_input.kill()
+        sys.exit(0)
+
+        
     app = QtWidgets.QApplication(sys.argv)
     room_window = QtWidgets.QMainWindow()
     main_window = QtWidgets.QMainWindow()
@@ -123,16 +128,11 @@ def main():
     game_over_ui.setupUi(game_over_window,controller)
     
     room_window.show() 
-    #sgame_over_window.show()
-      #  if (controller.lock_1 != -1 and controller.lock_2 != -1):
-      #      if controller.deck.cards[controller.lock_1].id == controller.deck.cards[controller.lock_2].id:
-     #           controller.myScore = controller.myScore + 1
-                #trava os botoes e da +1 na propria myScore
-            #else:
-                #reseta os 2 botoes clicados
-     #   controller.lock_1 = controller.lock_2 = -1
 
-    sys.exit(app.exec_())
+    app.aboutToQuit.connect(myExitHandler)
+    sys.exit(app.exec_())    
+
+    
     
     
 

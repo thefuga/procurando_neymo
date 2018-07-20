@@ -10,7 +10,6 @@ class Client(object):
         self.__client_socket = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
         
 
-
     def init_client(self, message_type, seed=None, room_name=None):
 
         if(len(room_name) > 16):
@@ -25,7 +24,7 @@ class Client(object):
 
         if(message[0:1].decode() == consts.ASK_HOST):
             self.__client_socket.send(message)
-            response = self.__client_socket.recv(40) #resposta do server, com mensagem contendo MSG_OK ou MSG_NOPE
+            response = self.__client_socket.recv(40)
             tokens = response[1:18].decode().split(":")
             ip = tokens[0]
             port = int(tokens[1])
@@ -59,10 +58,3 @@ class Client(object):
             return(ip, port, new_seed)
 
         self.__client_socket.close()
-        
-        
-if __name__ == "__main__":
-    import numpy
-    client = Client()
-    teste = int(numpy.random.randint(9))
-    print(client.init_client(consts.ASK_ESP_OPP, room_name="teste", seed=teste))

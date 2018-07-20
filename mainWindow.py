@@ -12,7 +12,7 @@ import sys
 import deck
 import time
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(QtWidgets.QWidget):
     def setupUi(self, MainWindow, controller):
         self.main_window = MainWindow
         self.controller = controller
@@ -638,3 +638,11 @@ class Ui_MainWindow(object):
         self.reset_16()
         self.reset_17()
         self.reset_18()
+    
+    def closeEvent(self, event):
+        print("saindo")
+        self.controller.peer.client_peer.kill()
+        self.controller.peer.server_peer.kill()
+        self.controller.peer.play_input.kill()
+        event.accept()
+        

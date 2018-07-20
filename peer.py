@@ -9,7 +9,7 @@ class ServerPeer(threading.Thread):
 
     def __init__(self, my_ip, my_port):
         threading.Thread.__init__(self)
-        self.running = 1
+        self.running = True
         self.my_port = my_port
         self.my_ip = my_ip
         self.connection_socket = None
@@ -36,24 +36,22 @@ class ServerPeer(threading.Thread):
                     if self.message[0] == consts.MSG_YOUR_TURN:
                         self.active = True
                     elif self.message[0] == consts.MSG_MY_TURN:
-                        self.active == False
-                    print((data[0:1].decode(), data[1:3].decode(), data[3:5].decode(), data[5:7].decode()))                 
+                        self.active == False              
                 else:
                     self.message = None
                     break
             time.sleep(0)
-        
+
 
     def kill(self):
-        self.running = 0
-
+        self.running = False
 
 
 class ClientPeer(threading.Thread):
 
     def __init__(self, peer_ip, peer_port):
         threading.Thread.__init__(self)
-        self.running = 1
+        self.running = True
         self.client_socket = None
         self.peer_ip = peer_ip
         self.peer_port = peer_port
@@ -66,21 +64,18 @@ class ClientPeer(threading.Thread):
         self.client_socket = skt.socket(skt.AF_INET, skt.SOCK_STREAM)
         self.client_socket.connect((self.peer_ip, self.peer_port))
 
-        # Select loop for listen
-        while self.running == True:
 
+        while self.running == True:
             input_ready, output_ready, except_ready = select.select ([self.client_socket], [self.client_socket], [])
 
             for input_item in input_ready:
-                # Handle sockets
                 data = self.client_socket.recv(7)
                 if data:
                     self.message = (data[0:1].decode(), data[1:3].decode(), data[3:5].decode(), data[5:7].decode())
                     if self.message[0] == consts.MSG_YOUR_TURN:
                         self.active = True
                     elif self.message[0] == consts.MSG_MY_TURN:
-                        self.active == False                       
-                    print((data[0:1].decode(), data[1:3].decode(), data[3:5].decode(), data[5:7].decode()))                    
+                        self.active == False                                       
                 else:
                     self.message = None
                     break
@@ -89,8 +84,7 @@ class ClientPeer(threading.Thread):
 
 
     def kill(self):
-        self.running = 0
-
+        self.running = False
 
 
 class PlayInput(threading.Thread):
@@ -99,7 +93,7 @@ class PlayInput(threading.Thread):
         threading.Thread.__init__(self)
         self.client_peer = client_peer
         self.server_peer = server_peer        
-        self.running = 1
+        self.running = True
         self.message = None
         
 
@@ -111,13 +105,11 @@ class PlayInput(threading.Thread):
 
             try:
                 self.client_peer.client_socket.sendall(self.message)
-                #self.client_peer.message = None
             except Exception:
                 pass
 
             try:
                 self.server_peer.connection_socket.sendall(self.message)
-                #self.server_peer.message = None
             except Exception:
                 pass
 
@@ -125,9 +117,9 @@ class PlayInput(threading.Thread):
 
             time.sleep(0)
         
-        
+
     def kill(self):
-        self.running = 0
+        self.running = False
 
 
     def play(self, message_type=None, first_card="__", second_card="__", score="__"):
