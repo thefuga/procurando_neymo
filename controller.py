@@ -83,7 +83,7 @@ class Controller(object):
             self.peer.client_peer.active = True
             self.peer.server_peer.active = True
         elif(room_name_1 == ""):
-            self.ip_port_seed=client.init_client(consts.ASK_ANY_OPP)
+            self.ip_port_seed=client.init_client(consts.ASK_ANY_OPP, room_name="")
             self.myTurn = False
             self.peer = peer.Peer(my_ip=self.ip_port_seed[0], server_port=self.ip_port_seed[1], my_port=self.ip_port_seed[1], listening=False)
         else:
